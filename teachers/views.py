@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.http import HttpRequest
 from teachers.models import Teacher
 from groupes.models import Groupe
 from students_app.models import Student
