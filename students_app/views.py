@@ -1,17 +1,34 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from students_app.models import Student
 from faker import Faker
 from random import randint
-
+from students_app.models import Student
+from django.db.models import Q
 
 fake = Faker()
 
 def hello_world(request):
     s = Student.objects.create(first_name=fake.name(), last_name=fake.last_name(), age= randint(20, 70), email =fake.email(), phone=fake.phone_number())
     ss = str(s.id) + '  ' + str(s.first_name) + ' ' + str(s.last_name) + ' ' + str(s.age) + ' ' + str(s.email) + ' ' + str(s.phone)
-    return HttpResponse(ss)
+    return render(request, 'hello.html')
 
+
+def students_list(request):
+    students = Student.objects.all()
+    students = students.exclude(age__lt=40)
+    q = ~Q(first_name__startswith = 'v')
+    q |= Q(first_name__endswith = 'n')
+    students = students.filter(q)
+    sorting = request.GET.get('order-by')
+    if sorting:
+        students = students.order_by(*sorting.split(','))
+
+
+    return render(request, 'students-list.html', {'students': students})
+
+
+
+#
 
 def request_(request):
     s = Student.objects.create(first_name=request.GET['name'], last_name=request.GET['last_name'], age=request.GET['age'], email=request.GET['email'], phone=request.GET['phone'])

@@ -7,4 +7,8 @@ class Student(models.Model):
     email = models.EmailField(max_length=128, default='rrr@gmail.com')
     phone = models.CharField(max_length=20, default='')
 
+    def info(self):
+        return f'{self.id} {self.first_name} {self.last_name} {self.age} {self.email} {self.phone}'
+
+
 
