@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for teacher in teachers %}
+     <p>
+         <a href="{% url 'teacher-edit' {{ teacher.id }}/">{{ teacher.id }}</a>
+         {{ teacher.first_name }} {{ teacher.last_name }} {{ teacher.age }} {{ teacher.email }} {{ teacher.phone }}
+     </p>
+{% endfor %}
+<a href="/create-teacher/">CREATE NEW TEACHER</a>
+</body>
+</html>

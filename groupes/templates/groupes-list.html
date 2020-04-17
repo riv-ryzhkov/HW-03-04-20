@@ -2,12 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>GROUPES LIST</title>
 </head>
 <body>
-{% for st in groupes %}
-    {{ st.info }}
-    <br/>
+
+GROUPES LIST
+{% for groupe in groupes %}
+     <p>
+         <a href="{% url 'groupe-edit' groupe.id %}">{{ groupe.id }}</a>
+         {{ groupe.name }} {{ groupe.head }} {{ groupe.email }} {{ groupe.phone }}
+     </p>
 {% endfor %}
+<a href="{% url 'create-groupe' %}">CREATE NEW GROUPE</a>
+
 </body>
 </html>
